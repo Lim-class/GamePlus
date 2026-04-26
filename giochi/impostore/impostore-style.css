@@ -1,0 +1,132 @@
+/* =========================================
+   VARIABILI E SFONDO
+   ========================================= */
+:root {
+    --accent: #f1c40f;
+    --danger: #e74c3c;
+    --success: #2ecc71;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    background: radial-gradient(circle at top, #2c3e50, #1c1c1c);
+    color: #f0f0f0;
+}
+
+/* =========================================
+   CONTAINER AD ALTO CONTRASTO
+   ========================================= */
+.game-container {
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 50px 30px;
+    border-radius: 30px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+    width: 100%;
+    max-width: 600px;
+    animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* =========================================
+   SECRET BOX (EFFETTO NEON)
+   ========================================= */
+.secret-box {
+    position: relative;
+    background: #0a0a0a;
+    height: 200px;
+    border: 2px solid var(--accent);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    box-shadow: inset 0 0 20px rgba(241, 196, 15, 0.1), 0 0 15px rgba(241, 196, 15, 0.2);
+    transition: all 0.5s ease;
+}
+
+.secret-box:hover {
+    box-shadow: 0 0 30px rgba(241, 196, 15, 0.4);
+    transform: scale(1.02);
+}
+
+.secret-box.revealed {
+    border-color: var(--success);
+    text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+/* =========================================
+   PULSANTI "GAMING"
+   ========================================= */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #f1c40f, #f39c12);
+    color: #000;
+    box-shadow: 0 10px 20px rgba(241, 196, 15, 0.2);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.2);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(241, 196, 15, 0.3);
+}
+
+.btn-vote {
+    background: var(--glass);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.btn-vote:hover {
+    background: var(--danger);
+    color: white;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
+}
+
+/* =========================================
+   CLASSIFICA STILE CYBERPUNK
+   ========================================= */
+.leaderboard {
+    margin-top: 50px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    padding: 30px;
+    border-left: 4px solid var(--accent);
+}
+
+#punteggi-list li {
+    background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent);
+    margin-bottom: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+#punteggi-list li:hover {
+    border-color: var(--glass-border);
+    background: rgba(255,255,255,0.08);
+}
+
+/* =========================================
+   ANIMAZIONI
+   ========================================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}

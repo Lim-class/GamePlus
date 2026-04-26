@@ -1,0 +1,139 @@
+/* impiccato-style.css */
+:root {
+    --neon-pink: #e94560;
+    --dark-blue: #1a1a2e;
+    --card-bg: #16213e;
+    --neon-green: #00ff88;
+}
+
+body {
+    background-color: var(--dark-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-wrapper {
+    width: 95%;
+    max-width: 500px;
+    margin-top: 20px;
+    perspective: 1000px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 25px;
+    border: 1px solid rgba(233, 69, 96, 0.3);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    text-align: center;
+    animation: slideUp 0.5s ease-out;
+}
+
+h2 {
+    color: var(--neon-pink);
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+/* Modalità Selezione */
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-neon {
+    background: transparent;
+    border: 2px solid var(--neon-pink);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-neon:hover {
+    background: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+/* Area Gioco */
+.lives-bar {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #fff;
+}
+
+.word-glow {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 0 10px var(--neon-pink);
+    letter-spacing: 12px;
+    margin: 30px 0;
+    text-transform: uppercase;
+}
+
+.input-section {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#letter-input {
+    width: 60px;
+    height: 60px;
+    background: #0f3460;
+    border: 2px solid var(--neon-pink);
+    border-radius: 12px;
+    color: white;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.btn-action {
+    background: var(--neon-pink);
+    color: white;
+    border: none;
+    padding: 0 25px;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.neon-input {
+    width: 100%;
+    padding: 15px;
+    background: #0f3460;
+    border: 2px solid var(--neon-pink);
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.status-msg {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    min-height: 24px;
+}
+
+.btn-restart {
+    margin-top: 30px;
+    background: rgba(255,255,255,0.05);
+    color: #888;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}

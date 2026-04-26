@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Impostore - GAME+</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="impostore-style.css">
+</head>
+<body>
+
+    <div class="header-container">
+        <h1 class="header-title">L'IMPOSTORE</h1>
+        <a href="../../index.html" class="user-chip" style="text-decoration: none;">⬅️ Dashboard</a>
+    </div>
+
+    <div id="setup-screen" class="game-container">
+        <p>Inserisci i nomi dei giocatori separati da virgola:</p>
+        <input type="text" id="input-nomi" placeholder="Marco, Anna, Luca..." class="search-bar">
+        <button class="btn btn-primary" onclick="setupGioco()">Inizia Partita</button>
+    </div>
+
+    <div id="game-screen" class="game-container" style="display: none;">
+        <h2 id="current-player-name">Giocatore: -</h2>
+        <div id="word-box" class="secret-box" onclick="rivelaParola()">
+            TOCCA PER VEDERE
+        </div>
+        <button id="btn-next" class="btn btn-secondary" onclick="prossimoTurno()" style="display: none;">PASSA TELEFONO</button>
+    </div>
+
+    <div id="vote-screen" class="game-container" style="display: none;">
+        <h2>DISCUTETE E VOTATE!</h2>
+        <p>Chi è l'impostore?</p>
+        <div id="vote-list" class="vote-grid"></div>
+    </div>
+
+    <div id="leaderboard" class="leaderboard">
+        <h3>Classifica Punti</h3>
+        <ul id="punteggi-list"></ul>
+    </div>
+
+    <script src="impostore-logic.js"></script>
+</body>
+</html>

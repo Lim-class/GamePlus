@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impiccato Pro - GAME+</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="impiccato-style.css">
+</head>
+<body>
+
+    <div class="header-container">
+        <h1 class="header-title">IMPICCATO</h1>
+        <a href="../../index.html" class="user-chip" style="text-decoration: none;">⬅️ Dashboard</a>
+    </div>
+
+    <div class="game-wrapper">
+        <div id="selection-screen" class="card">
+            <h2>MODALITÀ DI GIOCO</h2>
+            <div class="btn-group">
+                <button class="btn-neon" onclick="setMode('pc')">
+                    <span class="icon">🤖</span> CONTRO PC
+                </button>
+                <button class="btn-neon" onclick="setMode('2p')">
+                    <span class="icon">👥</span> 2 GIOCATORI
+                </button>
+            </div>
+        </div>
+
+        <div id="setup-screen" class="card" style="display: none;">
+            <h2>PAROLA SEGRETA</h2>
+            <p>Inserisci la parola per il tuo amico:</p>
+            <input type="password" id="secret-word-input" placeholder="Scrivi qui..." class="neon-input">
+            <button class="btn-action" onclick="startTwoPlayerGame()">INIZIA SFIDA</button>
+        </div>
+
+        <div id="game-screen" class="card" style="display: none;">
+            <div id="lives-container" class="lives-bar"></div>
+            
+            <div class="word-container">
+                <div id="word-display" class="word-glow"></div>
+            </div>
+
+            <div class="input-section">
+                <input type="text" id="letter-input" maxlength="1" placeholder="?" autocomplete="off">
+                <button id="btn-guess" class="btn-action" onclick="makeGuess()">PROVA</button>
+            </div>
+
+            <div id="message" class="status-msg"></div>
+            
+            <button class="btn-restart" onclick="resetToMenu()">TORNA AL MENU</button>
+        </div>
+    </div>
+
+    <script src="impiccato-logic.js"></script>
+</body>
+</html>
