@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tris</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">Tris</h1>
+        <div id="statusDisplay" class="status-display"></div>
+        <div class="board" id="gameBoard"></div>
+        
+        <div class="controls">
+            <div class="control-row">
+                <button id="pvpModeBtn" class="control-button">Giocatore vs Giocatore</button>
+                <button id="pvcModeBtn" class="control-button">Giocatore vs PC</button>
+            </div>
+            
+            <div class="control-row" id="difficultyControl" style="display: none; align-items: center; gap: 10px; justify-content: center;">
+                <label for="aiDifficulty" style="color: #a0aec0; font-weight: bold;">Difficoltà:</label>
+                <select id="aiDifficulty" style="padding: 0.5rem; border-radius: 0.5rem; background-color: #4a5568; color: white; border: none; outline: none; cursor: pointer;">
+                    <option value="easy">Facile</option>
+                    <option value="medium" selected>Medio</option>
+                    <option value="hard">Impossibile</option>
+                </select>
+            </div>
+
+            <div class="control-row">
+                <button id="randomMatchBtn" class="control-button" style="background-color: #48bb78;">Online Casuale</button>
+                <button id="privateRoomBtn" class="control-button" style="background-color: #805ad5;">Stanza Privata</button>
+            </div>
+
+            <div class="control-row">
+                <button id="resetGameBtn" class="control-button">Ricomincia Partita</button>
+            </div>
+            <div class="control-row">
+                <button id="viewHistoryBtn" class="control-button">Cronologia Partite</button>
+            </div>
+            <div class="info-box mt-4">
+                <h3>Punteggio</h3>
+                <p>Giocatore X: <span id="scoreX">0</span></p>
+                <p>Giocatore O: <span id="scoreO">0</span></p>
+                <p>Pareggi: <span id="scoreDraws">0</span></p>
+            </div>
+            <div class="control-row">
+                <button id="clearDataBtn" class="control-button" style="background-color: #f56565;">Elimina Dati</button>
+            </div>
+            <div class="control-row mt-4">
+                <a href="../../index.html" class="control-button text-center">Torna alla Home</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="gameResultModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="gameResultText"></h2>
+            <div class="modal-buttons">
+                <button id="closeResultModalBtn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="historyModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Cronologia Partite</h2>
+            <ul id="historyList"></ul>
+            <div class="modal-buttons">
+                <button id="closeHistoryModalBtn" style="background-color: #666;">Chiudi</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmClearDataModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>Conferma Eliminazione Dati</h2>
+            <p>Sei sicuro di voler eliminare tutti i punteggi e la cronologia delle partite?</p>
+            <div class="modal-buttons">
+                <button id="confirmClearDataBtn" style="background-color: #f56565;">Conferma</button>
+                <button id="cancelClearDataBtn" style="background-color: #666;">Annulla</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="globals.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="storage.js"></script>
+    <script src="ai.js"></script>
+    <script src="game.js"></script>
+    <script src="multiplayer.js"></script>
+</body>
+</body>
+</html>
+</body>
+</html>
