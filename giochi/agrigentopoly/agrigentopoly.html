@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrigentopoly - Edizione Interattiva Multiplayer</title>
+    <link rel="icon" href="agrigentopoly.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <a href="../../index.html" class="btn-home">⬅ Torna alla Home</a>
+
+    <div id="setup-screen" class="modal-overlay">
+        <div class="setup-box"> 
+
+            <h2>Benvenuto ad Agrigento Online</h2> 
+            <p>Configura il tuo profilo e scegli come giocare:</p>
+            
+            <div class="add-player-form">
+                <input type="text" id="playerName" placeholder="Tuo Nome" maxlength="10">
+                <select id="playerToken">
+                    <option value="🟠">🟠 L'Arancina</option>
+                    <option value="🐐">🐐 Capra Girgentana</option>
+                    <option value="🏺">🏺 La Quartara</option>
+                    <option value="🏛️">🏛️ Il Telamone</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button onclick="addPlayer()" style="background-color: #34495e;">Aggiungi in Locale</button>
+                <button id="btn-start" onclick="startGame()" disabled style="background-color: #27ae60;">Avvia Locale</button>
+            </div>
+
+            <div style="border-top: 2px dashed rgba(255,255,255,0.2); padding-top: 15px; margin-top: 15px; text-align: center;">
+                <h4 style="color: #f1c40f; margin-bottom: 10px;">🌐 MULTIPLAYER ONLINE</h4>
+                <button onclick="creaStanza()" style="background-color: #2980b9; margin-bottom: 10px;">Crea Nuova Stanza</button>
+                
+                <div style="display: flex; gap: 5px; margin-top: 5px;">
+                    <input type="text" id="roomCode" placeholder="Codice Stanza" style="padding: 10px; border-radius: 5px; border: none; flex: 1; text-transform: uppercase;">
+                    <button onclick="uniscitiStanza()" style="background-color: #27ae60; width: auto;">Entra</button>
+                </div>
+            </div>
+
+            <div id="online-lobby-status" style="display: none; margin-top: 15px; background: #1a252f; padding: 10px; border-radius: 5px;">
+                <p style="color: #2ecc71; font-weight: bold;">Stanza: <span id="online-room-id-display">-</span></p>
+                <p style="font-size: 0.8rem; color: #bdc3c7; margin-bottom: 5px;">Giocatori connessi:</p>
+                <ul id="players-list-setup"></ul>
+                <button id="btn-start-online" onclick="avviaPartitaOnline()" style="background-color: #e67e22; display: none;">Avvia Partita Online! 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container" id="game-ui" style="display: none;">
+        
+        <div class="board" id="board">
+            <div class="space corner corner-via" id="space-0" style="grid-column: 1; grid-row: 1;">
+                <div style="font-size: 1.5rem; font-weight: 900; color: #c0392b;">VIA!</div>
+                <div style="font-size: 0.6rem;">Ritiri 200 €</div>
+                <div class="tokens-container"></div>
+            </div>
+
+            <div class="space" style="grid-column: 1; grid-row: 2;" id="space-1">
+                <div class="color-bar" style="background-color: var(--red);"></div><div class="name">Porta di Ponte</div><div class="price">200 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 3;" id="space-2">
+                <div class="color-bar" style="background-color: var(--red);"></div><div class="name">Via Atenea (Sù)</div><div class="price">180 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 4;" id="space-3">
+                <div class="name" style="color: #2980b9;">Probabilità</div><div class="icon">❓</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 5;" id="space-4">
+                <div class="color-bar" style="background-color: var(--red);"></div><div class="name">Via Atenea (Giù)</div><div class="price">180 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 6;" id="space-5">
+                <div class="name">Stazione C.</div><div class="icon">🚂</div><div class="price">200 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 7;" id="space-6">
+                <div class="color-bar" style="background-color: var(--orange);"></div><div class="name">Spinasanta</div><div class="price">160 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 8;" id="space-7">
+                <div class="color-bar" style="background-color: var(--orange);"></div><div class="name">La Loggia</div><div class="price">140 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 9;" id="space-8">
+                <div class="name">ENEL Luce</div><div class="icon">💡</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 1; grid-row: 10;" id="space-9">
+                <div class="color-bar" style="background-color: var(--orange);"></div><div class="name">Fontanelle</div><div class="price">140 €</div><div class="tokens-container"></div>
+            </div>
+
+            <div class="space corner corner-parcheggio" id="space-10" style="grid-column: 1; grid-row: 11;">
+                <div style="font-size: 0.75rem; color: #27ae60;">PARCHEGGIO</div><div style="font-size: 1.2rem;">🚗</div><div class="tokens-container"></div>
+            </div>
+
+            <div class="space" style="grid-column: 2; grid-row: 11;" id="space-11">
+                <div class="color-bar top-side" style="background-color: var(--lightblue);"></div><div class="name">Villaggio Peruzzo</div><div class="price">120 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 3; grid-row: 11;" id="space-12">
+                <div class="color-bar top-side" style="background-color: var(--lightblue);"></div><div class="name">San Leone</div><div class="price">100 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 4; grid-row: 11;" id="space-13">
+                <div class="name" style="color: #d35400;">Imprevisti</div><div class="icon">⚠️</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 5; grid-row: 11;" id="space-14">
+                <div class="color-bar top-side" style="background-color: var(--lightblue);"></div><div class="name">Maddalusa</div><div class="price">100 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 6; grid-row: 11;" id="space-15">
+                <div class="name">Bus T.U.A.</div><div class="icon">🚌</div><div class="price">200 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 7; grid-row: 11;" id="space-16">
+                <div class="name">Museo Arch.</div><div class="icon">🏛️</div><div class="special-badge">ENTE PARCO</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 8; grid-row: 11;" id="space-17">
+                <div class="color-bar top-side" style="background-color: var(--brown);"></div><div class="name">Monserrato</div><div class="price">60 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 9; grid-row: 11;" id="space-18">
+                <div class="name" style="color: #2980b9;">Probabilità</div><div class="icon">❓</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 10; grid-row: 11;" id="space-19">
+                <div class="color-bar top-side" style="background-color: var(--brown);"></div><div class="name">Villaseta</div><div class="price">60 €</div><div class="tokens-container"></div>
+            </div>
+
+            <div class="space corner corner-vai-prigione" id="space-20" style="grid-column: 11; grid-row: 11;">
+                <div style="color: #d35400; font-weight: 900; font-size: 0.8rem;">VAI IN PRIGIONE</div><div style="font-size: 1.3rem;">🚨</div><div class="tokens-container"></div>
+            </div>
+
+            <div class="space" style="grid-column: 11; grid-row: 10;" id="space-21">
+                <div class="color-bar" style="background-color: var(--purple);"></div><div class="name">Rupe Atenea</div><div class="price">400 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 9;" id="space-22">
+                <div class="name">Kolymbethra</div><div class="icon">🌳</div><div class="special-badge" style="background:#27ae60;">GESTIONE FAI</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 8;" id="space-23">
+                <div class="color-bar" style="background-color: var(--purple);"></div><div class="name">Viale Vittoria</div><div class="price">350 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 7;" id="space-24">
+                <div class="name">Valle Templi</div><div class="icon">🏛️</div><div class="special-badge">ENTE PARCO</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 6;" id="space-25">
+                <div class="name">Rotatoria Scrittori</div><div class="icon">🔄</div><div class="price">200 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 5;" id="space-26">
+                <div class="color-bar" style="background-color: var(--green);"></div><div class="name">Zingarello</div><div class="price">320 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 4;" id="space-27">
+                <div class="color-bar" style="background-color: var(--green);"></div><div class="name">Cannatello</div><div class="price">300 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 3;" id="space-28">
+                <div class="name" style="color: #2980b9;">Probabilità</div><div class="icon">❓</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 11; grid-row: 2;" id="space-29">
+                <div class="color-bar" style="background-color: var(--green);"></div><div class="name">Villaggio Mosè</div><div class="price">300 €</div><div class="tokens-container"></div>
+            </div>
+
+            <div class="space corner corner-prigione" id="space-30" style="grid-column: 11; grid-row: 1;">
+                <div style="color: #7f8c8d; font-weight: bold; font-size: 0.75rem;">TRANSITO</div>
+                <div style="font-size: 1rem; color: #c0392b; font-weight: 900;">PRIGIONE</div>
+                <div class="tokens-container"></div>
+            </div>
+
+            <div class="space" style="grid-column: 10; grid-row: 1;" id="space-31">
+                <div class="color-bar top-side" style="background-color: var(--yellow);"></div><div class="name">Contrada Caos</div><div class="price">280 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 9; grid-row: 1;" id="space-32">
+                <div class="name">A.I.C.A.</div><div class="icon">💧</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 8; grid-row: 1;" id="space-33">
+                <div class="color-bar top-side" style="background-color: var(--yellow);"></div><div class="name">Giardina G.</div><div class="price">260 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 7; grid-row: 1;" id="space-34">
+                <div class="color-bar top-side" style="background-color: var(--yellow);"></div><div class="name">Montaperto</div><div class="price">260 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 6; grid-row: 1;" id="space-35">
+                <div class="name">Viadotto Akragas</div><div class="icon">🛣️</div><div class="price">200 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 5; grid-row: 1;" id="space-36">
+                <div class="color-bar top-side" style="background-color: var(--pink);"></div><div class="name">Il Duomo</div><div class="price">240 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 4; grid-row: 1;" id="space-37">
+                <div class="color-bar top-side" style="background-color: var(--pink);"></div><div class="name">Santa Croce</div><div class="price">220 €</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 3; grid-row: 1;" id="space-38">
+                <div class="name" style="color: #d35400;">Imprevisti</div><div class="icon">⚠️</div><div class="tokens-container"></div>
+            </div>
+            <div class="space" style="grid-column: 2; grid-row: 1;" id="space-39">
+                <div class="color-bar top-side" style="background-color: var(--pink);"></div><div class="name">Il Rabato</div><div class="price">220 €</div><div class="tokens-container"></div>
+            </div>
+
+            
+<div class="center-board">
+    <img src="tabellone.png" alt="Tabellone Agrigentopoly" class="center-logo">
+</div>
+        </div>
+
+        <div class="panel">
+            
+            <div class="panel-section" id="players-list-panel">
+                <h3>👥 Turno e Finanze</h3>
+                <div id="active-players-container"></div>
+            </div>
+
+            <div class="panel-section">
+                <h3 id="turn-indicator">Lancio Dadi</h3>
+                <div class="dice-container">
+                    <div class="die" id="dice1">1</div>
+                    <div class="die" id="dice2">1</div>
+                </div>
+                <button id="btn-roll" onclick="rollDice()">Lancia i Dadi!</button>
+                <button id="btn-next" onclick="endTurn()" style="display:none; background-color: #34495e; margin-top:5px;">Passa il Turno</button>
+                <p id="dice-result" style="text-align:center; margin-top:10px; font-weight:bold; color:#f1c40f;"></p>
+            </div>
+
+            <div class="panel-section">
+                <div class="card-display" id="card-box">
+                    <div style="color:#7f8c8d; font-style:italic;">Il mazzo si attiva da solo quando passi sulle caselle!</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+    <script src="../../firebase-config.js"></script>
+    <script src="cards-db.js"></script>
+    <script src="1-globals.js"></script>
+    <script src="2-database.js"></script>
+    <script src="3-setup.js"></script>
+    <script src="4-ui.js"></script>
+    <script src="5-movement.js"></script>
+    <script src="6-gameplay-actions.js"></script>
+    <script src="7-economy-actions.js"></script>
+    <script src="8-multiplayer.js"></script>
+</body>
+</html>
