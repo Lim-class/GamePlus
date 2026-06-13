@@ -8,6 +8,11 @@ const pauseMessage = document.getElementById("pause-message");
 const gameOverPopup = document.getElementById("game-over-popup");
 const finalScoreText = document.getElementById("final-score-text");
 
+// Elementi di controllo Mobile
+const touchJump = document.getElementById("touch-jump");
+const touchDuck = document.getElementById("touch-duck");
+const touchPause = document.getElementById("touch-pause");
+
 // Configurazione logica originale
 const NIGHT_MODE_TRIGGER = 700; // Inversione colori ogni 700 punti
 
@@ -212,9 +217,23 @@ function endGame() {
     gameOverPopup.style.display = "block";
 }
 
-// Gestione Input e controlli da tastiera
+function triggerJump() {
+    if (isPaused) return;
+    if (!gameStarted) {
+        startGame();
+    } else if (!isJumping && !isDucking) {
+        isJumping = true;
+        dino.classList.add("jump");
+        
+        setTimeout(() => {
+            dino.classList.remove("jump");
+            isJumping = false;
+        }, 650); // Sincronizzato con il tempo dell'animazione CSS
+    }
+}
+
+// --- GESTIONE INPUT (TASTIERA) ---
 document.addEventListener('keydown', (e) => {
-    // Tasto di attivazione pausa (P)
     if (e.key.toLowerCase() === 'p') {
         togglePause();
         return;
@@ -224,17 +243,7 @@ document.addEventListener('keydown', (e) => {
 
     if (e.key === ' ' || e.key === 'ArrowUp') {
         e.preventDefault();
-        if (!gameStarted) {
-            startGame();
-        } else if (!isJumping && !isDucking) {
-            isJumping = true;
-            dino.classList.add("jump");
-            
-            setTimeout(() => {
-                dino.classList.remove("jump");
-                isJumping = false;
-            }, 650); // Sincronizzato con il tempo dell'animazione CSS
-        }
+        triggerJump();
     }
     
     if (e.key === 'ArrowDown' && gameStarted && !isJumping) {
@@ -249,4 +258,39 @@ document.addEventListener('keyup', (e) => {
         isDucking = false;
         dino.classList.remove("dino-duck");
     }
+});
+
+// --- GESTIONE INPUT (TOUCH MOBILE) ---
+touchJump.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    triggerJump();
+});
+
+touchDuck.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (!gameStarted || isPaused || isJumping) return;
+    isDucking = true;
+    dino.classList.add("dino-duck");
+});
+
+touchDuck.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    isDucking = false;
+    dino.classList.remove("dino-duck");
+});
+
+touchPause.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    togglePause();
+});
+
+// Permetti l'avvio o il riavvio rapido cliccando sui relativi testi/popup informativi
+startMessage.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startGame();
+});
+
+gameOverPopup.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startGame();
 });
