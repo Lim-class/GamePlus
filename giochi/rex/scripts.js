@@ -1,4 +1,4 @@
-// Elementi DOM
+// Elementi DOM Area di Gioco
 const dino = document.getElementById("dino");
 const screen = document.getElementById("screen");
 const scoreDisplay = document.getElementById("current-score");
@@ -8,10 +8,10 @@ const pauseMessage = document.getElementById("pause-message");
 const gameOverPopup = document.getElementById("game-over-popup");
 const finalScoreText = document.getElementById("final-score-text");
 
-// Elementi di controllo Mobile
-const touchJump = document.getElementById("touch-jump");
-const touchDuck = document.getElementById("touch-duck");
-const touchPause = document.getElementById("touch-pause");
+// Elementi di controllo Universali (Pulsanti)
+const btnJump = document.getElementById("btn-jump");
+const btnDuck = document.getElementById("btn-duck");
+const btnPause = document.getElementById("btn-pause");
 
 // Configurazione logica originale
 const NIGHT_MODE_TRIGGER = 700; // Inversione colori ogni 700 punti
@@ -122,7 +122,6 @@ function spawnEnemy() {
     
     if (spawnBird) {
         enemyContainer.classList.add("bird-enemy");
-        // Tre altezze casuali originali (Alto, Medio, Basso)
         const birdHeights = ["30px", "65px", "95px"];
         enemyContainer.style.bottom = birdHeights[Math.floor(Math.random() * birdHeights.length)];
     } else {
@@ -145,7 +144,6 @@ function togglePause() {
     isPaused = !isPaused;
     if (isPaused) {
         pauseMessage.style.display = "block";
-        // Blocca l'animazione dell'uccello congelando i fogli di stile
         enemies.forEach(e => { if(e.classList.contains('bird-enemy')) e.style.animationPlayState = 'paused'; });
     } else {
         pauseMessage.style.display = "none";
@@ -157,7 +155,6 @@ function togglePause() {
 function gameLoop() {
     if (!gameStarted || isPaused) return;
 
-    // Movimento dei nemici tarato sulla velocità progressiva
     for (let i = 0; i < enemies.length; i++) {
         let enemy = enemies[i];
         let currentLeft = parseFloat(enemy.style.left);
@@ -181,7 +178,6 @@ function gameLoop() {
 
 function checkCollision() {
     const dinoRect = dino.getBoundingClientRect();
-    // Hitbox flessibile per evitare morti ingiuste (Tolleranza pixel)
     const paddingX = 14; 
     const paddingY = 8;
     
@@ -228,11 +224,11 @@ function triggerJump() {
         setTimeout(() => {
             dino.classList.remove("jump");
             isJumping = false;
-        }, 650); // Sincronizzato con il tempo dell'animazione CSS
+        }, 650);
     }
 }
 
-// --- GESTIONE INPUT (TASTIERA) ---
+// --- GESTIONE INPUT 1: TASTIERA (PC DEKTOP) ---
 document.addEventListener('keydown', (e) => {
     if (e.key.toLowerCase() === 'p') {
         togglePause();
@@ -260,37 +256,46 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-// --- GESTIONE INPUT (TOUCH MOBILE) ---
-touchJump.addEventListener('touchstart', (e) => {
+// --- GESTIONE INPUT 2: PULSANTI SCHERMO (POINTER EVENTS - UNIVERSIBILE PC/MOBILE) ---
+
+// Pulsante Salta
+btnJump.addEventListener('pointerdown', (e) => {
     e.preventDefault();
     triggerJump();
 });
 
-touchDuck.addEventListener('touchstart', (e) => {
+// Pulsante Abbassati (Inizio azione)
+btnDuck.addEventListener('pointerdown', (e) => {
     e.preventDefault();
     if (!gameStarted || isPaused || isJumping) return;
     isDucking = true;
     dino.classList.add("dino-duck");
 });
 
-touchDuck.addEventListener('touchend', (e) => {
+// Pulsante Abbassati (Fine azione al rilascio o se esce dal tasto)
+const stopDucking = (e) => {
     e.preventDefault();
-    isDucking = false;
-    dino.classList.remove("dino-duck");
-});
+    if (isDucking) {
+        isDucking = false;
+        dino.classList.remove("dino-duck");
+    }
+};
+btnDuck.addEventListener('pointerup', stopDucking);
+btnDuck.addEventListener('pointerleave', stopDucking);
 
-touchPause.addEventListener('touchstart', (e) => {
+// Pulsante Pausa
+btnPause.addEventListener('pointerdown', (e) => {
     e.preventDefault();
     togglePause();
 });
 
-// Permetti l'avvio o il riavvio rapido cliccando sui relativi testi/popup informativi
-startMessage.addEventListener('touchstart', (e) => {
+// Interazione con le Schermate di Messaggio/Popup (Inizio/Riavvio gioco)
+startMessage.addEventListener('pointerdown', (e) => {
     e.preventDefault();
     startGame();
 });
 
-gameOverPopup.addEventListener('touchstart', (e) => {
+gameOverPopup.addEventListener('pointerdown', (e) => {
     e.preventDefault();
     startGame();
 });
