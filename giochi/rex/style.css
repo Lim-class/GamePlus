@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
-    -webkit-user-select: none; /* Disabilita selezione testo su iOS */
+    -webkit-user-select: none; /* Impedisce la selezione del testo su iOS */
 }
 
 body {
@@ -25,7 +25,7 @@ body {
     transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
-/* Modalità Notte (Inversione colori originale) */
+/* Modalità Notte */
 body.dark-mode {
     background-color: #202124;
 }
@@ -127,7 +127,6 @@ body.dark-mode .cactus-enemy {
     width: 46px;
     height: 32px;
     background-color: #535353;
-    /* Sagoma stilizzata geometrica stile retro-game */
     clip-path: polygon(0% 45%, 25% 20%, 65% 20%, 100% 40%, 85% 75%, 50% 55%, 15% 75%);
     animation: wingFlap 0.2s steps(2) infinite;
 }
@@ -156,6 +155,7 @@ body.dark-mode .bird-enemy {
     color: #535353;
     width: 80%;
     max-width: 300px;
+    cursor: pointer;
 }
 
 body.dark-mode #start-message, 
@@ -174,21 +174,14 @@ body.dark-mode #game-over-popup h2 {
     color: #ff6b6b;
 }
 
-/* --- NUOVI CONTROLLI MOBILE --- */
-#mobile-controls {
-    display: none; /* Nascosti su PC */
+/* --- CONTROLLI DI GIOCO UNIVERSALI --- */
+#game-controls {
+    display: flex; /* Sempre visibile su PC e Mobile */
     justify-content: space-between;
     gap: 10px;
     width: 95vw;
     max-width: 800px;
     margin: 15px auto;
-}
-
-/* Visibili solo su dispositivi con touch screen corporeo */
-@media (pointer: coarse) {
-    #mobile-controls {
-        display: flex;
-    }
 }
 
 .control-btn {
@@ -202,17 +195,30 @@ body.dark-mode #game-over-popup h2 {
     border: 2px solid #535353;
     border-radius: 8px;
     outline: none;
-    touch-action: manipulation; /* Ottimizza i tocchi sequenziali */
+    cursor: pointer; /* Manina visibile su desktop al passaggio */
+    touch-action: none; /* Blocca zoom/scorrimenti involontari della pagina su mobile */
+    transition: background-color 0.1s ease;
 }
 
+/* Feedback al passaggio del mouse (Desktop) */
+.control-btn:hover {
+    background-color: #e5e5e5;
+}
+
+/* Feedback al click / pressione (Desktop & Mobile) */
 .control-btn:active {
     background-color: #dbdbdb;
 }
 
+/* Stili pulsanti in Dark Mode */
 body.dark-mode .control-btn {
     color: #e8eaed;
     background-color: #3c4043;
     border-color: #5f6368;
+}
+
+body.dark-mode .control-btn:hover {
+    background-color: #4e5256;
 }
 
 body.dark-mode .control-btn:active {
