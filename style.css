@@ -1,0 +1,190 @@
+/* =========================================
+   IMPORTAZIONE FONT & VARIABILI
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+:root {
+    --bg-android: #2C3E50;      
+    --card-red: #E74C3C;        
+    --card-blue: #3498DB;       
+    --card-green: #2ECC71;      
+    --card-purple: #9B59B6;     
+    --card-orange: #F39C12;     
+    --card-foots: #1E824C;      /* Verde scuro stile campo/gestionale per Foots */
+    --text-light: #ECF0F1;
+    --header-bg: #34495E;       
+}
+
+/* =========================================
+   RESET E STILI GENERALI
+   ========================================= */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-android);
+    color: var(--text-light);
+    margin: 0;
+    padding: 60px 40px; /* Molto più spazio ai bordi della pagina */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* =========================================
+   HEADER & RICERCA
+   ========================================= */
+.header-container {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    margin-bottom: 80px; /* Distanza enorme tra testata e giochi */
+}
+
+.header-title {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    letter-spacing: 4px;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 550px;
+    height: 65px;
+    border-radius: 12px;
+    border: none;
+    padding: 0 30px;
+    background: var(--text-light);
+    color: #2C3E50;
+    font-size: 1.2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    outline: none;
+}
+
+/* =========================================
+   GRIGLIA DEI GIOCHI (MASSIMA DISTANZA)
+   ========================================= */
+.game-grid {
+    display: grid;
+    width: 100%;
+    max-width: 1200px; /* Contenitore più largo per ospitare i gap */
+    
+    /* Colonne più larghe di base per dare respiro */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    
+    /* DISTANZA MASSIMA: Portata a 60px */
+    gap: 60px; 
+    
+    padding: 20px;
+    justify-items: center; 
+    align-items: center;
+}
+
+/* =========================================
+   CARD GIOCO
+   ========================================= */
+.game-card {
+    width: 100%;
+    max-width: 220px; /* Leggermente più grandi per bilanciare il vuoto */
+    height: 200px;
+    
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 25px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effetto al tocco/click */
+.game-card:active {
+    transform: scale(0.85); /* Si rimpicciolisce di più per feedback netto */
+    filter: brightness(0.7);
+}
+
+@media (hover: hover) {
+    .game-card:hover {
+        transform: translateY(-15px); /* Salta più in alto al passaggio del mouse */
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+}
+
+.icon-wrapper {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* FIX: Impedisce alle immagini delle icone di ingrandirsi o deformarsi */
+.game-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    display: block;
+}
+
+.game-label {
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* COLORI CARD */
+.tris      { background-color: var(--card-red); }
+.pong      { background-color: var(--card-blue); }
+.rex       { background-color: var(--card-green); }
+.obbligo   { background-color: var(--card-purple); }
+.ruota     { background-color: var(--card-orange); }
+.sudoku    { background-color: var(--card-purple); }
+.impostore { background-color: #34495E; }
+.impiccato { background-color: var(--card-red); }
+.foots     { background-color: var(--card-foots); }
+
+/* Riflesso superiore */
+.game-card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 50%;
+    background: linear-gradient(rgba(255,255,255,0.1), transparent);
+    pointer-events: none;
+}
+
+/* =========================================
+   USER CHIP
+   ========================================= */
+.user-chip {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--header-bg);
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none; /* Rimuove la sottolineatura del link */
+    color: var(--text-light);
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.user-chip:hover {
+    background-color: var(--card-blue); /* Cambia colore al passaggio */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.2);
+}
+
+.chip-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
