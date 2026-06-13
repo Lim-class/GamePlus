@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chrome Dino - Record & Logic</title>
     <link rel="stylesheet" href="style.css"/>
 </head>
@@ -16,17 +16,25 @@
         <img src="trex1.png" id="dino" alt="Dino" />
         <img src="logo.png" id="logo" alt="Logo" /> 
         
-        <div id="start-message">Premi SPAZIO per iniziare</div>
+        <div id="start-message">Premi SPAZIO o Tocca qui per iniziare</div>
         <div id="pause-message" style="display: none;">PAUSA</div>
 
         <div id="game-over-popup" style="display: none;">
             <h2>GAME OVER</h2>
             <p id="final-score-text"></p>
-            <p>Premi SPAZIO per riprovare</p>
+            <p>Premi SPAZIO o Tocca qui per riprovare</p>
         </div>
 
         <div id="ground"></div>
     </div>
+
+    <!-- Controlli Mobile dedicati -->
+    <div id="mobile-controls">
+        <button id="touch-jump" class="control-btn">SALTA</button>
+        <button id="touch-duck" class="control-btn">GIÙ</button>
+        <button id="touch-pause" class="control-btn">PAUSA</button>
+    </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>
