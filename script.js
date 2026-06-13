@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchString = e.target.value.toLowerCase();
 
         games.forEach(game => {
-            // Legge il testo dentro la label del gioco (es. "Tris")
+            // Legge il testo dentro la label del gioco (es. "Tris", "Foots")
             const gameName = game.querySelector('.game-label').textContent.toLowerCase();
             
             if (gameName.includes(searchString)) {

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAME+ Pro Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://i.ibb.co/V0xR3ZbJ/Logo-bis-me.png" type="image/png">
+</head>
+<body>
+
+    <div class="header-container">
+        <h1 class="header-title">GAME+</h1>
+        
+        <a class="user-chip">
+            <span class="chip-icon">👤</span> Guest
+        </a>
+        
+        <br><br>
+        <input type="text" id="search-bar" class="search-bar" placeholder="Cerca il tuo gioco preferito...">
+    </div>
+
+    <main class="game-grid" id="game-grid">
+        
+        <a href="giochi/tris/tris.html" class="game-card tris game-item">
+            <div class="icon-wrapper">
+                <img src="drawable/tic_tac_toe.png" alt="Tris Logo" class="game-img">
+            </div>
+            <div class="game-label">Tris</div>
+        </a>
+        
+        <a href="giochi/pong/pong.html" class="game-card pong game-item">
+            <div class="icon-wrapper">🏓</div>
+            <div class="game-label">Pong</div>
+        </a>
+
+        <a href="giochi/rex/rex.html" class="game-card rex game-item">
+            <div class="icon-wrapper">🦖</div>
+            <div class="game-label">Rex</div>
+        </a>
+
+        <a href="giochi/Obbligo o verità/Obbligo o verità.html" class="game-card obbligo game-item">
+            <div class="icon-wrapper">
+                <img src="drawable/obbligo_o_verita.png" alt="Obbligo o Verità Logo" class="game-img">
+            </div>
+            <div class="game-label">Obbligo/Verità</div>
+        </a>
+
+        <a href="giochi/La ruota della fortuna/La ruota della fortuna.html" class="game-card ruota game-item">
+            <div class="icon-wrapper">🎡</div>
+            <div class="game-label">La Ruota</div>
+        </a>
+
+        <a href="giochi/sudoku/sudoku.html" class="game-card sudoku game-item">
+            <div class="icon-wrapper">🔢</div>
+            <div class="game-label">Sudoku</div>
+        </a>
+
+        <a href="giochi/impostore/impostore.html" class="game-card impostore game-item">
+            <div class="icon-wrapper">
+                <img src="drawable/impostore.png" alt="Impostore Logo" class="game-img">
+            </div>
+            <div class="game-label">Impostore</div>
+        </a>
+
+        <a href="giochi/impiccato/impiccato.html" class="game-card impiccato game-item">
+            <div class="icon-wrapper">😵</div>
+            <div class="game-label">Impiccato</div>
+        </a>
+
+        <a href="giochi/agrigentopoly/agrigentopoly.html" class="game-card agrigentopoly game-item">
+            <div class="icon-wrapper">
+                <img src="giochi/agrigentopoly/agrigentopoly.png" alt="Agrigentopoly Logo" class="game-img">
+            </div>
+            <div class="game-label">Agrigentopoly</div>
+        </a>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
