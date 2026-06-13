@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
+    -webkit-user-select: none; /* Disabilita selezione testo su iOS */
 }
 
 body {
@@ -153,6 +154,8 @@ body.dark-mode .bird-enemy {
     border-radius: 8px;
     z-index: 100;
     color: #535353;
+    width: 80%;
+    max-width: 300px;
 }
 
 body.dark-mode #start-message, 
@@ -169,4 +172,49 @@ body.dark-mode #game-over-popup {
 
 body.dark-mode #game-over-popup h2 {
     color: #ff6b6b;
+}
+
+/* --- NUOVI CONTROLLI MOBILE --- */
+#mobile-controls {
+    display: none; /* Nascosti su PC */
+    justify-content: space-between;
+    gap: 10px;
+    width: 95vw;
+    max-width: 800px;
+    margin: 15px auto;
+}
+
+/* Visibili solo su dispositivi con touch screen corporeo */
+@media (pointer: coarse) {
+    #mobile-controls {
+        display: flex;
+    }
+}
+
+.control-btn {
+    flex: 1;
+    padding: 18px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: #535353;
+    background-color: #f0f0f0;
+    border: 2px solid #535353;
+    border-radius: 8px;
+    outline: none;
+    touch-action: manipulation; /* Ottimizza i tocchi sequenziali */
+}
+
+.control-btn:active {
+    background-color: #dbdbdb;
+}
+
+body.dark-mode .control-btn {
+    color: #e8eaed;
+    background-color: #3c4043;
+    border-color: #5f6368;
+}
+
+body.dark-mode .control-btn:active {
+    background-color: #5f6368;
 }
