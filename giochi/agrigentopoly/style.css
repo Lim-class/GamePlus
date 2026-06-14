@@ -1,0 +1,223 @@
+/* Stile per il bottone Home di Agrigentopoly */
+.btn-home {
+    position: fixed; /* Cambiato da absolute a fixed per rimanere sempre visibile in alto a sinistra */
+    top: 15px;
+    left: 15px;
+    background-color: #e74c3c; 
+    color: #ffffff;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 2000; /* Un valore alto assicura che stia sopra sia al tabellone che alla modale di setup */
+}
+
+.btn-home:hover {
+    background-color: #c0392b; /* Rosso più scuro al passaggio del mouse */
+    transform: translateY(-1px);
+}
+
+.btn-home:active {
+    transform: translateY(1px);
+}
+
+
+:root {
+    --board-bg: #e2f0e4;
+    --line-color: #2c3e50;
+    --card-bg: #ffffff;
+    --text-dark: #2c3e50;
+    --brown: #8b4513; --lightblue: #5dade2; --pink: #ec407a;
+    --orange: #f39c12; --red: #e74c3c; --yellow: #f1c40f;
+    --green: #27ae60; --purple: #8e44ad;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a252f;
+    color: #ecf0f1;
+    padding: 10px;
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+}
+
+header { text-align: center; margin-bottom: 20px; }
+header h1 { font-size: 2.5rem; color: #e74c3c; text-transform: uppercase; text-shadow: 2px 2px 0px #fff, 4px 4px 0px #000; margin-bottom: 5px; }
+header p { font-size: 1rem; color: #bdc3c7; font-style: italic; }
+
+/* === SCHERMATA SETUP === */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(26, 37, 47, 0.95);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+/* Modifica questa classe esistente per dare respiro al titolo */
+.setup-box {
+    background-color: #2c3e50; 
+    padding: 40px 30px 30px 30px; /* Aumentato il padding superiore da 30px a 40px */
+    border-radius: 10px; 
+    border: 3px solid #e74c3c; 
+    text-align: center; 
+    width: 90%; 
+    max-width: 420px;
+}
+.setup-box h2 { color: #f1c40f; margin-bottom: 10px; }
+.add-player-form { display: flex; gap: 10px; margin: 15px 0; }
+.add-player-form input, .add-player-form select { padding: 10px; border-radius: 5px; border: none; flex: 1; }
+#players-list-setup { list-style: none; text-align: left; margin-bottom: 20px; max-height: 150px; overflow-y: auto; }
+#players-list-setup li { background: #34495e; padding: 10px; margin-bottom: 5px; border-radius: 5px; font-weight: bold; }
+
+/* === LISTA GIOCATORI IN GIOCO === */
+.player-card {
+    display: flex; justify-content: space-between; align-items: center;
+    background-color: #2c3e50; padding: 8px 12px; margin-bottom: 8px;
+    border-radius: 6px; border-left: 4px solid transparent; transition: all 0.3s;
+}
+.player-card.active-turn { background-color: #f39c12; color: #fff; border-left-color: #fff; box-shadow: 0 0 10px rgba(243, 156, 18, 0.5); }
+.player-card.active-turn span { color: #fff !important; }
+.money-controls button {
+    background-color: #34495e; border: 1px solid #7f8c8d; padding: 2px 8px; color: white; cursor: pointer; border-radius: 4px; width: auto; font-size: 0.8rem;
+}
+.money-controls button:hover { background-color: #e74c3c; }
+
+/* === PEDINE (Tokens) === */
+.tokens-container {
+    position: absolute; top: 20px; left: 0; width: 100%; display: flex; justify-content: center; gap: 2px; flex-wrap: wrap; pointer-events: none;
+}
+.token {
+    font-size: 1.5rem; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.8)); transition: all 0.4s ease-in-out;
+}
+
+/* === LAYOUT MOBILE (Elenco) === */
+.main-container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; }
+.board { display: flex; flex-direction: column; gap: 5px; background-color: transparent; border: none; box-shadow: none; }
+.space { border: 1px solid #bdc3c7; background-color: #ffffff; display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 12px; border-radius: 6px; color: var(--text-dark); position: relative; overflow: visible; }
+.color-bar, .color-bar.top-side { width: 15px !important; height: 100% !important; position: absolute !important; left: 0 !important; top: 0 !important; border: none !important; order: 0 !important; }
+.name { font-size: 0.85rem; font-weight: 800; margin-left: 20px; text-transform: uppercase; text-align: left; flex: 1; }
+.price { font-size: 0.85rem; font-weight: bold; color: #27ae60; }
+.icon { font-size: 1.3rem; margin-right: 10px; }
+.center-board { background-color: #34495e; color: #fff; padding: 15px; border-radius: 6px; text-align: center; order: -1; margin-bottom: 10px; }
+
+.center-logo { 
+    display: block;
+    max-width: 100%;        
+    max-height: 100%;
+    object-fit: contain; /* Mantiene le proporzioni dell'immagine senza tagliarla */
+    margin: 0 auto; 
+}
+
+.panel { background-color: #2c3e50; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.panel-section { background-color: #34495e; border-radius: 6px; padding: 12px; border-left: 5px solid #e74c3c; }
+.panel-section h3 { font-size: 1rem; margin-bottom: 8px; color: #f1c40f; }
+.dice-container { display: flex; justify-content: center; gap: 15px; margin: 10px 0; }
+.die { width: 50px; height: 50px; background-color: #fff; color: #000; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; font-weight: bold; }
+button { width: 100%; padding: 10px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 5px; border: none; color: white; background-color: #e74c3c; }
+button:disabled { background-color: #7f8c8d !important; cursor: not-allowed; opacity: 0.6; }
+button.btn-prob { background-color: #2980b9; } button.btn-imprev { background-color: #d35400; }
+.card-display { min-height: 80px; background-color: #fff; color: #2c3e50; border-radius: 6px; padding: 10px; font-size: 0.9rem; text-align: center; font-weight: 600; }
+.card-display.probabilità { border-color: #2980b9; background-color: #e8f4f8; border: 3px solid #2980b9; }
+.card-display.imprevisto { border-color: #d35400; background-color: #fdf2e9; border: 3px solid #d35400; }
+.card-type-label { font-size: 0.8rem; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; }
+.special-badge { font-size: 0.6rem; background-color: #e67e22; color: #fff; padding: 2px 5px; border-radius: 3px; margin-left: 10px; }
+.corner { background-color: #f7f9f9 !important; text-align: center; justify-content: center; }
+.corner > div { display: inline-block; margin: 0 5px; }
+
+/* === MEDIA QUERY: DESKTOP (Griglia Responsive a Tutto Schermo) === */
+@media (min-width: 1150px) {
+    body { 
+        padding: 10px; 
+        height: 100vh; 
+        overflow: hidden; 
+    }
+    
+    header { margin-bottom: 10px; }
+    header h1 { font-size: clamp(1.5rem, 3.5vh, 2.5rem); margin-bottom: 0; }
+    header p { display: none; } 
+
+    .main-container { 
+        display: flex; 
+        flex-direction: row; 
+        justify-content: center; 
+        align-items: stretch;
+        gap: 20px; 
+        width: 100%; 
+        max-width: 100%;
+        height: calc(100vh - 80px); 
+    }
+
+    .board { 
+        display: grid; 
+        grid-template-columns: 1.5fr repeat(9, 1fr) 1.5fr; 
+        grid-template-rows: 1.5fr repeat(9, 1fr) 1.5fr; 
+        background-color: var(--board-bg); 
+        border: 4px solid var(--line-color); 
+        border-radius: 8px; 
+        height: 100%; 
+        aspect-ratio: 1 / 1; 
+        max-width: calc(100vw - 400px); 
+    }
+
+    .panel {
+        width: 350px;
+        min-width: 350px;
+        height: 100%;
+        overflow-y: auto; 
+    }
+
+    .space { 
+        border: 1px solid #bdc3c7; 
+        border-radius: 0; 
+        flex-direction: column; 
+        justify-content: space-between; 
+        align-items: center; 
+        text-align: center; 
+        padding: 2px; 
+        overflow: hidden; 
+    }
+
+    .tokens-container { top: 25%; } 
+    .token { font-size: clamp(0.8rem, 2vh, 1.5rem); filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.8)); }
+
+    .corner > div { display: block; margin: 0; font-size: clamp(0.5rem, 1.5vh, 1.2rem) !important; }
+
+    .color-bar { width: 100% !important; height: 22% !important; position: static !important; border-bottom: 2px solid var(--line-color) !important; }
+    .color-bar.top-side { width: 100% !important; height: 22% !important; position: static !important; border-top: 2px solid var(--line-color) !important; border-bottom: none !important; order: 2 !important; }
+    
+    .board .space[style*="grid-column: 1;"] .color-bar { height: 100% !important; width: 22% !important; position: absolute !important; right: 0 !important; top: 0 !important; border-left: 2px solid var(--line-color) !important; border-bottom: none !important; border-top: none !important; }
+    .board .space[style*="grid-column: 1;"] .name, .board .space[style*="grid-column: 1;"] .price { margin-right: 22%; margin-left: 0; }
+    
+    .board .space[style*="grid-column: 11;"] .color-bar { height: 100% !important; width: 22% !important; position: absolute !important; left: 0 !important; top: 0 !important; border-right: 2px solid var(--line-color) !important; border-bottom: none !important; border-top: none !important; }
+    .board .space[style*="grid-column: 11;"] .name, .board .space[style*="grid-column: 11;"] .price { margin-left: 22%; margin-right: 0; }
+
+    .name { font-size: clamp(0.45rem, 1vh, 0.75rem); margin-left: 0; text-align: center; flex: none; margin-top: 2px; line-height: 1.1; word-wrap: break-word; }
+    .price { font-size: clamp(0.45rem, 1vh, 0.7rem); color: #7f8c8d; margin-bottom: 2px; }
+    .icon { margin-right: 0; font-size: clamp(0.7rem, 2vh, 1.5rem); }
+    .special-badge { margin-left: 0; display: block; margin-top: 2px; font-size: clamp(0.4rem, 0.8vh, 0.6rem); }
+
+    .center-board { 
+        grid-column: 2 / 11; 
+        grid-row: 2 / 11; 
+        background-color: var(--board-bg); 
+        order: unset; 
+        margin-bottom: 0; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        overflow: hidden; 
+        padding: 20px; /* Aggiunto spazio interno di sicurezza */
+    }
+    
+    .center-logo { 
+        display: block !important; 
+        max-width: 100% !important; 
+        max-height: 100% !important;
+        object-fit: contain !important;
+        transform: none !important; 
+        text-shadow: none !important; 
+        margin: 0 auto !important;
+    }
+}
