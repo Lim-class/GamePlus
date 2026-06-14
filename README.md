@@ -50,6 +50,7 @@ La dashboard funge da hub centrale da cui è possibile accedere rapidamente a va
 │   ├── sudoku/
 │   ├── impostore/
 │   └── impiccato/
+│   └── agrigentopoly/
 └── README.md
 
 ⚡ Come Avviare
