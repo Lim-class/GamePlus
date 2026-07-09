@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Pro - GAME+</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="sudoku-style.css">
+</head>
+<body>
+
+    <div class="header-container">
+        <h1 class="header-title">SUDOKU PRO</h1>
+        <a href="../../index.html" class="user-chip" style="text-decoration: none;">
+            <span>⬅️</span> Dashboard
+        </a>
+    </div>
+
+    <div class="sudoku-wrapper">
+        <div id="sudoku-grid" class="sudoku-grid"></div>
+
+        <div class="controls-panel">
+            <button class="btn-game btn-check" onclick="checkSolution()">Verifica</button>
+            <button class="btn-game btn-hint" onclick="getHint()">Indizio</button>
+            <button class="btn-game btn-new" onclick="startNewGame()">Nuova Partita</button>
+        </div>
+        
+        <div class="legend">
+            <b>Guida colori:</b><br>
+            <span style="color: #000">Nero: Fisso</span> | 
+            <span style="color: #3498db">Blu: Tuo</span> | 
+            <span style="color: #e74c3c">Rosso: Errore</span>
+        </div>
+    </div>
+
+    <script src="sudoku-logic.js"></script>
+</body>
+</html>

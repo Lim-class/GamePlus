@@ -1,0 +1,226 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none; /* Impedisce la selezione del testo su iOS */
+}
+
+body {
+    background-color: #fdfdfd;
+    transition: background-color 0.5s ease;
+}
+
+/* Modalità Giorno (Default) */
+#screen {
+    width: 95vw;
+    max-width: 800px;
+    height: 350px;
+    margin: 25px auto;
+    border: 2px solid #535353;
+    position: relative;
+    background-color: #f7f7f7;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+/* Modalità Notte */
+body.dark-mode {
+    background-color: #202124;
+}
+
+body.dark-mode #screen {
+    background-color: #202124;
+    border-color: #5f6368;
+}
+
+body.dark-mode #ui-container, 
+body.dark-mode #start-message,
+body.dark-mode #pause-message,
+body.dark-mode #game-over-popup {
+    color: #e8eaed;
+}
+
+body.dark-mode #ground {
+    background-color: #5f6368;
+}
+
+body.dark-mode #dino, 
+body.dark-mode #logo,
+body.dark-mode .cactus-enemy {
+    filter: invert(1);
+}
+
+/* UI Elements */
+#ui-container {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    z-index: 20;
+    color: #535353;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#high-score-box {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 2px;
+}
+
+#logo {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    height: 40px;
+    opacity: 1;
+    transition: filter 0.5s ease;
+}
+
+#ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #535353;
+    transition: background-color 0.5s ease;
+}
+
+/* Dino & Animazioni */
+#dino {
+    height: 50px;
+    position: absolute; 
+    bottom: 20px;
+    left: 50px;
+    z-index: 10;
+    transition: filter 0.5s ease;
+}
+
+.dino-duck {
+    height: 32px !important;
+}
+
+.jump {
+    animation: jump 0.65s cubic-bezier(0.25, 1, 0.50, 1);
+}
+
+@keyframes jump {
+    0% { bottom: 20px; }
+    45% { bottom: 145px; }
+    100% { bottom: 20px; }
+}
+
+/* Nemici */
+.enemy-instance {
+    position: absolute; 
+    z-index: 5;
+}
+
+.cactus-enemy {
+    transition: filter 0.5s ease;
+}
+
+/* Pterodattilo in Pixel-Art CSS nativo */
+.bird-enemy {
+    width: 46px;
+    height: 32px;
+    background-color: #535353;
+    clip-path: polygon(0% 45%, 25% 20%, 65% 20%, 100% 40%, 85% 75%, 50% 55%, 15% 75%);
+    animation: wingFlap 0.2s steps(2) infinite;
+}
+
+body.dark-mode .bird-enemy {
+    background-color: #e8eaed;
+}
+
+@keyframes wingFlap {
+    0% { transform: scaleY(1); }
+    100% { transform: scaleY(-0.85) translateY(-8px); }
+}
+
+/* Schermate e Popup */
+#start-message, #pause-message, #game-over-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border: 2px solid #535353;
+    border-radius: 8px;
+    z-index: 100;
+    color: #535353;
+    width: 80%;
+    max-width: 300px;
+    cursor: pointer;
+}
+
+body.dark-mode #start-message, 
+body.dark-mode #pause-message, 
+body.dark-mode #game-over-popup {
+    background-color: rgba(32, 33, 36, 0.9);
+    border-color: #5f6368;
+}
+
+#game-over-popup h2 {
+    margin-bottom: 10px;
+    color: #d32f2f;
+}
+
+body.dark-mode #game-over-popup h2 {
+    color: #ff6b6b;
+}
+
+/* --- CONTROLLI DI GIOCO UNIVERSALI --- */
+#game-controls {
+    display: flex; /* Sempre visibile su PC e Mobile */
+    justify-content: space-between;
+    gap: 10px;
+    width: 95vw;
+    max-width: 800px;
+    margin: 15px auto;
+}
+
+.control-btn {
+    flex: 1;
+    padding: 18px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: #535353;
+    background-color: #f0f0f0;
+    border: 2px solid #535353;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer; /* Manina visibile su desktop al passaggio */
+    touch-action: none; /* Blocca zoom/scorrimenti involontari della pagina su mobile */
+    transition: background-color 0.1s ease;
+}
+
+/* Feedback al passaggio del mouse (Desktop) */
+.control-btn:hover {
+    background-color: #e5e5e5;
+}
+
+/* Feedback al click / pressione (Desktop & Mobile) */
+.control-btn:active {
+    background-color: #dbdbdb;
+}
+
+/* Stili pulsanti in Dark Mode */
+body.dark-mode .control-btn {
+    color: #e8eaed;
+    background-color: #3c4043;
+    border-color: #5f6368;
+}
+
+body.dark-mode .control-btn:hover {
+    background-color: #4e5256;
+}
+
+body.dark-mode .control-btn:active {
+    background-color: #5f6368;
+}
