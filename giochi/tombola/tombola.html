@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tombola Napoletana - GAME+</title>
+    <link rel="stylesheet" href="tombola-style.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="../../index.html" class="btn-home">⬅️ Dashboard</a>
+        <h1>🎱 TOMBOLA</h1>
+        <button id="btn-change-mode" class="btn-secondary hidden" onclick="tornaAlMenu()">Cambia Modalità</button>
+    </div>
+
+    <!-- SCHERMATA DI SELEZIONE MODALITÀ -->
+    <div id="setup-screen" class="card-panel">
+        <h2>Scegli come vuoi giocare</h2>
+        <p class="subtitle">Puoi usare l'app solo per estrarre i numeri e mostrare il tabellone a tutti, oppure giocare con le tue cartelle.</p>
+
+        <div class="mode-grid">
+            <div class="mode-card" onclick="avviaModalitaTabellone()">
+                <div class="mode-icon">📋</div>
+                <h3>Solo Tabellone</h3>
+                <p>Ideale per il Tomboliere: estrai i numeri da 1 a 90, mostra il tabellone a schermo intero e leggi la Smorfia.</p>
+                <button class="btn-primary">Apri Tabellone</button>
+            </div>
+
+            <div class="mode-card">
+                <div class="mode-icon">🎟️</div>
+                <h3>Gioca con Cartelle</h3>
+                <p>Genera da 1 a 4 cartelle, segna i numeri estratti, controlla il tabellone in tempo reale e dichiara le vincite!</p>
+                
+                <div class="cartelle-selector">
+                    <label for="num-cartelle">Numero cartelle:</label>
+                    <select id="num-cartelle">
+                        <option value="1">1 Cartella</option>
+                        <option value="2" selected>2 Cartelle</option>
+                        <option value="3">3 Cartelle</option>
+                        <option value="4">4 Cartelle</option>
+                    </select>
+                </div>
+
+                <div class="auto-extract-option">
+                    <input type="checkbox" id="chk-auto-extract" checked>
+                    <label for="chk-auto-extract">Estrazione gestita dall'app</label>
+                </div>
+
+                <button class="btn-success" onclick="avviaModalitaGiocatore()">Inizia Partita</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AREA DI GIOCO PRINCIPALE -->
+    <div id="game-screen" class="game-layout hidden">
+        
+        <!-- PANNELLO CONTROLLO E NUMERO ESTRATTO -->
+        <div class="control-banner">
+            <div class="last-number-box">
+                <span class="label">ULTIMO NUMERO</span>
+                <div id="current-number" class="number-ball">--</div>
+                <div id="smorfia-text" class="smorfia">Pronto per iniziare!</div>
+            </div>
+
+            <div class="actions-box">
+                <div class="stats-row">
+                    <span>Estratti: <strong id="extracted-count">0</strong>/90</span>
+                    <span>Rimanenti: <strong id="remaining-count">90</strong></span>
+                </div>
+
+                <div class="history-box">
+                    <span class="history-label">Ultimi usciti:</span>
+                    <div id="last-numbers-list" class="history-balls"></div>
+                </div>
+
+                <div class="btn-group">
+                    <button id="btn-extract" class="btn-primary btn-large" onclick="estraiNumero()">🎲 Estrai Numero</button>
+                    <button id="btn-toggle-board" class="btn-info" onclick="toggleTabelloneMobile()">👁️ Mostra/Nascondi Tabellone</button>
+                    <button class="btn-danger" onclick="resetPartita()">🔄 Nuova Partita</button>
+                </div>
+
+                <!-- Inserimento manuale se l'estrazione avviene con il panariello fisico -->
+                <div id="manual-input-box" class="manual-box hidden">
+                    <input type="number" id="manual-number-input" min="1" max="90" placeholder="N° uscito (1-90)">
+                    <button class="btn-secondary" onclick="inserisciNumeroManuale()">Segna</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- BANNER VINCITE -->
+        <div id="prizes-bar" class="prizes-bar">
+            <span class="prize-badge" id="prize-ambo">Ambo</span>
+            <span class="prize-badge" id="prize-terno">Terno</span>
+            <span class="prize-badge" id="prize-quaterna">Quaterna</span>
+            <span class="prize-badge" id="prize-cinquina">Cinquina</span>
+            <span class="prize-badge" id="prize-tombola">TOMBOLA</span>
+        </div>
+
+        <!-- CONTENITORE DINAMICO: CARTELLE + TABELLONE -->
+        <div class="play-area" id="play-area">
+            
+            <!-- SEZIONE CARTELLE GIOCATORE -->
+            <div id="player-cards-section" class="cards-section hidden">
+                <div class="section-header">
+                    <h2>🎟️ Le tue Cartelle</h2>
+                    <label class="auto-mark-toggle">
+                        <input type="checkbox" id="chk-auto-mark" checked> Segna automaticamente
+                    </label>
+                </div>
+                <div id="cards-container" class="cards-grid"></div>
+            </div>
+
+            <!-- SEZIONE TABELLONE 1-90 -->
+            <div id="tabellone-section" class="tabellone-section">
+                <div class="section-header">
+                    <h2>📋 Tabellone (1 - 90)</h2>
+                    <span class="hint">Clicca su un numero per segnarlo/rimuoverlo manualmente</span>
+                </div>
+                <div id="tabellone-grid" class="tabellone-grid"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- POPUP VINCITA -->
+    <div id="win-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="win-title">🎉 COMPLIMENTI!</h2>
+            <p id="win-message"></p>
+            <button class="btn-primary" onclick="chiudiModal()">Continua</button>
+        </div>
+    </div>
+
+    <script src="tombola-logic.js"></script>
+    <script src="../../anti-inspect.js"></script>
+</body>
+</html>

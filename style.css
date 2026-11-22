@@ -1,0 +1,245 @@
+/* =========================================
+   IMPORTAZIONE FONT & VARIABILI
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+:root {
+    --bg-main: #2C3E50;       /* Colore di sfondo esatto della foto */
+    --text-light: #ECF0F1;
+    --chip-bg: #34495E;
+}
+
+/* =========================================
+   RESET E STILI GENERALI
+   ========================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-light);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* =========================================
+   HEADER & RICERCA (Stile esatto foto)
+   ========================================= */
+.header-container {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin: 0 0 15px 0;
+    letter-spacing: 1px;
+}
+
+.user-chip {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--chip-bg);
+    padding: 8px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+}
+
+.chip-icon {
+    margin-right: 8px;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 500px;
+    height: 50px;
+    border-radius: 50px; /* Bordi arrotondati come nella foto */
+    border: none;
+    padding: 0 20px 0 45px; /* Spazio a sinistra per l'icona */
+    background-color: white;
+    color: #2C3E50;
+    font-size: 1.1rem;
+    outline: none;
+    margin-top: 25px;
+    
+    /* Simula l'icona della lente d'ingrandimento */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%237F8C8D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 15px center;
+}
+
+.search-bar::placeholder {
+    color: #7F8C8D;
+}
+
+/* =========================================
+   GRIGLIA RESPONSIVA (Telefono vs PC)
+   ========================================= */
+.game-grid {
+    display: grid;
+    width: 100%;
+    max-width: 1200px; /* Limite massimo di larghezza per i mega schermi */
+    
+    /* IMPOSTAZIONE BASE PER TELEFONO: 2 colonne fisse */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
+    
+    padding: 10px;
+    justify-items: center;
+}
+
+/* IMPOSTAZIONE PER PC E TABLET: Si espande in automatico */
+@media (min-width: 600px) {
+    .game-grid {
+        /* Crea quante più colonne possibili larghe almeno 160px */
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 35px;
+    }
+}
+
+/* =========================================
+   CARD GIOCO E IMMAGINI
+   ========================================= */
+.game-item {
+    width: 100%;
+    max-width: 180px;
+    aspect-ratio: 1 / 1; /* Mantiene la proporzione quadrata perfetta */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    background: transparent; /* Nessuno sfondo squadrato! */
+}
+
+/* Effetto interattivo al passaggio del mouse o al tocco */
+.game-item:hover {
+    transform: scale(1.05);
+}
+
+.game-item:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+.icon-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Le immagini PNG sono i veri distintivi */
+.game-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Un'ombra leggerissima per staccare i distintivi dallo sfondo */
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+/* Nascondiamo il testo HTML perché nella foto è già integrato nel design del logo */
+.game-label {
+    display: none;
+}
+
+/* =========================================
+   FALLBACK PER GIOCHI SENZA IMMAGINE (Solo Emoji)
+   ========================================= */
+/* Se nel tuo HTML hai ancora giochi con le emoji (es. 🏓 per Pong) 
+   creiamo un cerchio di emergenza per non farli sembrare rotti */
+.icon-wrapper:not(:has(img)) {
+    background-color: var(--chip-bg);
+    border-radius: 50%;
+    font-size: 4rem;
+    width: 130px;
+    height: 130px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+
+
+/* =========================================
+   FOOTER ALTRE WEB APP
+   ========================================= */
+.platform-footer {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: auto;
+    padding-top: 40px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.footer-divider {
+    height: 1px;
+    background: rgba(236, 240, 241, 0.15);
+    margin-bottom: 20px;
+}
+
+.footer-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #BDC3C7;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.apps-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.app-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--chip-bg);
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-pill:hover {
+    background-color: #3d566e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.app-pill-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.app-pill-emoji {
+    font-size: 1.1rem;
+}
